@@ -1,0 +1,29 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [{
+			"name": "springboot-oauth-demo",
+			"image": "rayarnab82/springboot-oauth-demo:latest",
+			"essential": true,
+			"memory": 256,
+			"portMappings": [{
+				"hostPort": 8081,
+				"containerPort": 8081
+			}],
+			"command":["java","-Djava.security.egd=file:/dev/./urandom","-jar","./oauth-demo-app.jar"]
+		},
+		{
+			"name": "springboot-demo",
+			"image": "rayarnab82/springboot-demo:latest",
+			"essential": true,
+			"memory": 256,
+			"portMappings": [{
+				"hostPort": 80,
+				"containerPort": 8080
+			}],
+			"links": [
+				"springboot-oauth-demo"
+			],
+			"command":["java","-Djava.security.egd=file:/dev/./urandom","-jar","./demo-app.jar"]
+		}
+	]
+}
