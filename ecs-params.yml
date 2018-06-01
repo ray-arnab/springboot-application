@@ -1,0 +1,10 @@
+version: 2
+task_definition:
+  task_size:
+    mem_limit: 512
+  services:
+    springboot-oauth-demo:
+        essential: true
+    springboot-demo:
+        essential: true
+  

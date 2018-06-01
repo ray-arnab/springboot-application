@@ -1,9 +1,9 @@
-version: "2.0"
+version: '2'
 
 services:
 
     springboot-oauth-demo:
-        image: rayarnab82/springboot-oauth-demo:latest
+        image: rayarnab82/springboot-oauth-demo:${TAG}
         container_name: springboot-oauth-demo
         build:
             context: ./springboot-oauth-authzserver
@@ -16,7 +16,7 @@ services:
             - springboot-network
 
     springboot-demo:
-        image: rayarnab82/springboot-demo:latest
+        image: rayarnab82/springboot-demo:${TAG}
         container_name: springboot-demo
         build:
             context: ./springboot-demo
@@ -28,12 +28,14 @@ services:
         expose:
             - 8080
         ports:
-            - "8080:8080"
+            - "80:8080"
         networks:
             - springboot-network
+        env_file:
+            - springboot-demo.env
         environment:
-            SPRING_PROFILES_ACTIVE: dev
-            SPRING_APPLICATION_JSON: '{ "security":{ "oauth2":{ "resource":{ "userInfoUri":"http://springboot-oauth-demo:8081/auth/user" } } }, "oauth":{ "token":{ "url":"http://springboot-oauth-demo:8081/auth/oauth/token" } } }'
+            - security.oauth2.resource.userInfoUri=http://springboot-oauth-demo:8081/auth/user
+            - oauth.token.url=http://springboot-oauth-demo:8081/auth/oauth/token            
 
 networks:
     springboot-network:
