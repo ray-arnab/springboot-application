@@ -41,3 +41,13 @@ Set of commands to deploy in AWS ECS
 
 - Access application as: http://IP/api/v1/client/lookup.html 
 	- Replace IP with what's shown for  <code>ecs-cli ps --cluster sb-demo-cluster</code>
+
+## deployment to local Kubernetes (minikube)
+Set of commands to deploy in local Minikube. 
+
+- Assuming kompose, kubectl and minikube are installed, navigate to the folder containing docker-compose.yml, and execute the following:
+	- kompose convert
+	- kubectl create -f springboot-demo-service.yaml,springboot-oauth-demo-service.yaml,springboot-demo-deployment.yaml,springboot-oauth-demo-deployment.yaml
+
+- Access application as: http://IP:port/api/v1/client/lookup.html 
+	- Replace IP:port with what's shown for  <code>minikube service springboot-demo --url</code>
