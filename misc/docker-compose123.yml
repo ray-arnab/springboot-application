@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+
+    springboot-oauth-demo:
+        image: rayarnab82/springboot-oauth-demo:latest
+        container_name: springboot-oauth-demo
+        build:
+            context: ./springboot-oauth-authzserver
+            dockerfile: Dockerfile
+        expose:
+            - 8081
+        ports:
+            - "8081:8081"
+        networks:
+            - springboot-network
+
+    springboot-demo:
+        image: rayarnab82/springboot-demo:latest
+        container_name: springboot-demo
+        build:
+            context: ./springboot-demo
+            dockerfile: Dockerfile
+        links:
+            - springboot-oauth-demo:springboot-oauth-demo
+        depends_on:
+            - springboot-oauth-demo
+        expose:
+            - 8080
+        ports:
+            - "80:8080"
+        networks:
+            - springboot-network
+        env_file:
+            - springboot-demo.env
+        environment:
+            - security.oauth2.resource.userInfoUri=http://springboot-oauth-demo:8081/auth/user
+            - oauth.token.url=http://springboot-oauth-demo:8081/auth/oauth/token            
+
+networks:
+    springboot-network:
+        driver: bridge
