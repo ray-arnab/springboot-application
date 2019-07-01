@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # AWS access setup - corresponding user should have AmazonEC2ContainerServiceforEC2Role role as well
-export AWS_ACCESS_KEY_ID=AKIAWT4DH44RV7KOUPEW
-export AWS_SECRET_ACCESS_KEY=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
+#export AWS_ACCESS_KEY_ID=~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#export AWS_SECRET_ACCESS_KEY=~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ecs-cli configure profile --profile-name ecs-deployment-user
+#ecs-cli configure profile --profile-name ecs-deployment-user
 
 # configure - do not use underscores in cluster name
 ecs-cli configure --cluster sb-demo-cluster --default-launch-type EC2 --region us-east-2 --config-name sb-demo-config
